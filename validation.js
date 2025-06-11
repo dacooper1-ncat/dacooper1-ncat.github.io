@@ -1,7 +1,7 @@
 function validateForm() {
   clearWarnings();
 
-  let valid = true;
+  let errors = [];
 
   const username = document.getElementById("username").value.trim();
   const email = document.getElementById("email").value.trim();
@@ -11,82 +11,57 @@ function validateForm() {
   const gender = document.querySelector('input[name="gender"]:checked');
   const age = document.getElementById("age").value;
 
-  // Regex patterns
   const usernamePattern = /^[a-z0-9]{4,12}$/;
   const emailPattern = /^[^@]+@[^@]+\.(com|net|org|edu)$/;
   const phonePattern = /^\(\d{3}\)-\d{3}-\d{4}$/;
-  const passwordPattern = /^[A-Za-z0-9_]{9,}$/;
-  const strongPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{9,}$/;
+  const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{9,}$/;
 
-  // Validate each field
   if (!username) {
-    markError("label-username", "red");
-    valid = false;
+    errors.push("Please enter a username.");
   } else if (!usernamePattern.test(username)) {
-    markError("label-username", "orange");
-    valid = false;
+    errors.push("Please enter a valid username (lowercase letters or numbers, 4–12 characters).");
   }
 
   if (!email) {
-    markError("label-email", "red");
-    valid = false;
+    errors.push("Please enter an email.");
   } else if (!emailPattern.test(email)) {
-    markError("label-email", "orange");
-    valid = false;
+    errors.push("Please enter a valid email ending in .com, .net, .org, or .edu.");
   }
 
   if (!phone) {
-    markError("label-phone", "red");
-    valid = false;
+    errors.push("Please enter a phone number.");
   } else if (!phonePattern.test(phone)) {
-    markError("label-phone", "orange");
-    valid = false;
+    errors.push("Please enter a valid phone number in format (123)-456-7890.");
   }
 
   if (!password) {
-    markError("label-password", "red");
-    valid = false;
+    errors.push("Please enter a password.");
   } else if (!passwordPattern.test(password)) {
-    markError("label-password", "orange");
-    valid = false;
-  }
-
-  // Bonus validation
-  if (password && !strongPassword.test(password)) {
-    console.warn("Password does not meet bonus criteria.");
+    errors.push("Password must include uppercase, lowercase, number, special character and be >8 characters.");
   }
 
   if (!confirmPassword) {
-    markError("label-confirm-password", "red");
-    valid = false;
+    errors.push("Please confirm your password.");
   } else if (password !== confirmPassword) {
-    alert("Passwords do not match.");
-    markError("label-confirm-password", "orange");
-    valid = false;
+    errors.push("Passwords do not match.");
   }
 
   if (!gender) {
-    alert("Please select a gender.");
-    valid = false;
+    errors.push("Please select a gender.");
   }
 
   if (!age) {
-    markError("label-age", "red");
-    valid = false;
+    errors.push("Please select an age group.");
   }
 
-  if (valid) {
+  if (errors.length > 0) {
+    const errorDiv = document.getElementById("error-messages");
+    errorDiv.innerHTML = errors.map(e => `<div style="color: red;">${e}</div>`).join('');
+  } else {
     alert("Form submitted successfully!");
   }
 }
 
-function markError(labelId, color) {
-  document.getElementById(labelId).style.color = color;
-}
-
 function clearWarnings() {
-  const labels = document.querySelectorAll("label");
-  labels.forEach(label => {
-    label.style.color = "";
-  });
+  document.getElementById("error-messages").innerHTML = "";
 }
