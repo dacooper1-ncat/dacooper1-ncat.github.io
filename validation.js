@@ -64,5 +64,4 @@ function validateForm() {
 
 function clearWarnings() {
   document.getElementById("error-messages").innerHTML = "";
-  document.getElementById("password-match-error").style.display = "none";
 }
