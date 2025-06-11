@@ -15,6 +15,12 @@
     .warning {
       color: orange;
     }
+    .inline-group {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
   </style>
 </head>
 <body>
@@ -27,9 +33,11 @@
     <label id="label-confirm-password">Confirm Password: <input type="password" id="confirmPassword" name="confirmPassword"></label>
     
     <label>Gender:</label>
-    <label><input type="radio" name="gender" value="male"> Male</label>
-    <label><input type="radio" name="gender" value="female"> Female</label>
-    <label><input type="radio" name="gender" value="other"> Other</label>
+    <div class="inline-group">
+      <label><input type="radio" name="gender" value="male"> Male</label>
+      <label><input type="radio" name="gender" value="female"> Female</label>
+      <label><input type="radio" name="gender" value="other"> Other</label>
+    </div>
     
     <label id="label-age">Age Group:
       <select id="age">
@@ -42,18 +50,21 @@
       </select>
     </label>
 
-    <label>Music Genre:</label>
-    <label><input type="checkbox" name="genre" value="Pop"> Pop</label>
-    <label><input type="checkbox" name="genre" value="Hip-hop"> Hip-hop</label>
-    <label><input type="checkbox" name="genre" value="Jazz"> Jazz</label>
-    <label><input type="checkbox" name="genre" value="Rock"> Rock</label>
-    <label><input type="checkbox" name="genre" value="Classical"> Classical Music</label>
-    <label><input type="checkbox" name="genre" value="Country"> Country</label>
+    <label>Favorite Music Genre:</label>
+    <div class="inline-group">
+      <label><input type="checkbox" name="genre" value="Pop"> Pop</label>
+      <label><input type="checkbox" name="genre" value="Hip-hop"> Hip-hop</label>
+      <label><input type="checkbox" name="genre" value="Jazz"> Jazz</label>
+      <label><input type="checkbox" name="genre" value="Rock"> Rock</label>
+      <label><input type="checkbox" name="genre" value="Classical"> Classical Music</label>
+      <label><input type="checkbox" name="genre" value="Country"> Country</label>
+    </div>
 
     <br><br>
     <button type="button" onclick="validateForm()">Submit</button>
     <button type="reset" onclick="clearWarnings()">Clear</button>
   </form>
+  <div id="error-messages" style="margin-top: 20px;"></div>
 <p><a href="index.html">Back to homepage</a></p>
 </body>  
 </html>
