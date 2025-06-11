@@ -40,10 +40,16 @@ function validateForm() {
     errors.push("Password must include uppercase, lowercase, number, special character and be >8 characters.");
   }
 
+  const confirmError = document.getElementById("password-match-error");
+  
   if (!confirmPassword) {
     errors.push("Please confirm your password.");
+    confirmError.style.display = none;
   } else if (password !== confirmPassword) {
-    errors.push("Passwords do not match.");
+    confirmError.innerText = "⚠ Passwords do not match.";
+    confirmError.style.display = "block";
+  } else {
+    confirmError.style.display = "none";
   }
 
   if (!gender) {
@@ -64,4 +70,5 @@ function validateForm() {
 
 function clearWarnings() {
   document.getElementById("error-messages").innerHTML = "";
+  document.getElementById("password-match-error").style.display = "none";
 }
