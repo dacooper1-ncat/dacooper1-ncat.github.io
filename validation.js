@@ -44,7 +44,7 @@ function validateForm() {
   errors.push("Please confirm your password.");
 } else if (password !== confirmPassword) {
   errors.push("Passwords do not match.");
-    return;
+  alert("Passwords do not match."); 
 }
 
   if (!gender) {
